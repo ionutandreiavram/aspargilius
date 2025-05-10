@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  aspargilius:
+    build: .
+    container_name: aspargilius
+    environment:
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+    devices:
+      - /dev/snd
+    network_mode: host
+    volumes:
+      - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+      - ~/.config/pulse/cookie:/root/.config/pulse/cookie
+    stdin_open: true
+    tty: true

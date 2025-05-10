@@ -1,0 +1,18 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    # Build the Docker image
+    - docker build -t aspargilius .
+  script:
+    # Run the tests inside the Docker container
+    - docker run aspargilius pytest /app/tests/
+  artifacts:
+    paths:
+      - results/
+    expire_in: 1 week
